@@ -24,7 +24,7 @@ public class CSI {
 
     public CSI(String fileName,String matrixType, String algorithm) throws Exception {
         FileParser fp = new FileParser();
-        List<List<Double>> points = fp.pointsGenerator(fileName,0);
+        List<List<Double>> points = fp.pointsGenerator(fileName,10);
         X = points.get(0);
         Y = points.get(1);
         hiddenX = points.get(2);
@@ -75,11 +75,11 @@ public class CSI {
                     break;
                 case "jacobi":
                     Jacobi jacobi = new Jacobi(N);
-                    M = jacobi.jacobiMethod(m,N);
+                    M = jacobi.jacobiMethod(m,N/2);
                     break;
                 case "gauss-seidel":
                     GaussSeidel gaussSeidel = new GaussSeidel(N);
-                    M = gaussSeidel.gaussSeidelMethod(m,N);
+                    M = gaussSeidel.gaussSeidelMethod(m,N/2);
                     break;
                 default:
                     System.out.println("Taka metoda nie istnieje dla tej macierzy");
@@ -89,11 +89,11 @@ public class CSI {
             switch (algorithm) {
                 case "jacobi":
                     Jacobi jacobi = new Jacobi(N);
-                    M = jacobi.jacobiMethod(s, N);
+                    M = jacobi.jacobiMethod(s, N/2);
                     break;
                 case "gauss-seidel":
                     GaussSeidel gaussSeidel = new GaussSeidel(N);
-                    M = gaussSeidel.gaussSeidelMethod(s, N);
+                    M = gaussSeidel.gaussSeidelMethod(s, N/2);
                     break;
                 default:
                     System.out.println("Taka metoda nie istnieje dla tej macierzy");
