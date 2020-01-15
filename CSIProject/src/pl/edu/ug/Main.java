@@ -6,10 +6,13 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         //Test.mistakeTest();
-        //Test.speedTest();
-        /*CSI csi = new CSI("hills100","regular","gauss");
-        csi.saveInterpolated();*/
-        //Test.interationAlgorithmsDifferenceTest();
-        Test.interationAlgorithmsMistakeTest();
+       /*for (int i=100;i<501;i=i+100) {
+            Test.speedTest(i);
+        }*/
+       // Test.algorithmsDifferenceTest();
+        //Test.interationAlgorithmsMistakeTest();
+        //Test.iterationMethodsTest();
+        //Test.GaussVsJacobiSparse();
+        Test.dependenciesTest();
     }
 }

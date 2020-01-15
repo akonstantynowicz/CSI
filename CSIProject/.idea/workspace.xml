@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ffab51a0-1ffc-4e3e-ae59-57004ddcc609" name="Default Changelist" comment="" />
+    <list default="true" id="ffab51a0-1ffc-4e3e-ae59-57004ddcc609" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CSIProject/META-INF/CSIProject.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CSIProject/pl/edu/ug/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CSIProject/pl/edu/ug/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CSIProject/pl/edu/ug/csi/CSI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CSIProject/pl/edu/ug/csi/CSI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pl/edu/ug/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pl/edu/ug/Main.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,7 +24,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1W41JDd52AmgxWiHWPSDCvw2GcM" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -25,25 +36,27 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="findjar.last.used.dir" value="$PROJECT_DIR$/lib" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Projekt2/Gauss" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/lib" />
+      <recent name="$PROJECT_DIR$/src/pl/edu/ug/generic" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="pl.edu.ug.matrix" />
       <recent name="pl.edu.ug.gauss" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/lib" />
-      <recent name="$PROJECT_DIR$/src/pl/edu/ug/generic" />
     </key>
   </component>
   <component name="RunManager">
@@ -100,10 +113,10 @@
       <screen x="67" y="27" width="1299" height="741" />
     </state>
     <state x="311" y="58" width="847" height="677" key="#Project_Structure/67.27.1299.741@67.27.1299.741" timestamp="1578751301286" />
-    <state x="404" y="202" width="603" height="390" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1578753160524">
+    <state x="404" y="202" width="627" height="390" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1579091338660">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state x="404" y="202" width="603" height="390" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1299.741@67.27.1299.741" timestamp="1578753160524" />
+    <state x="404" y="202" width="627" height="390" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1299.741@67.27.1299.741" timestamp="1579091338660" />
     <state x="524" y="115" width="544" height="562" key="#com.intellij.ide.util.MemberChooser" timestamp="1578839496557">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
@@ -120,22 +133,22 @@
       <screen x="67" y="27" width="1299" height="741" />
     </state>
     <state x="499" y="113" width="735" height="567" key="FileChooserDialogImpl/67.27.1299.741@67.27.1299.741" timestamp="1578861720484" />
-    <state width="1253" height="175" key="GridCell.Tab.0.bottom" timestamp="1578953285586">
+    <state width="1253" height="175" key="GridCell.Tab.0.bottom" timestamp="1579095258351">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state width="1253" height="175" key="GridCell.Tab.0.bottom/67.27.1299.741@67.27.1299.741" timestamp="1578953285586" />
-    <state width="1253" height="175" key="GridCell.Tab.0.center" timestamp="1578953285585">
+    <state width="1253" height="175" key="GridCell.Tab.0.bottom/67.27.1299.741@67.27.1299.741" timestamp="1579095258351" />
+    <state width="1253" height="175" key="GridCell.Tab.0.center" timestamp="1579095258348">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state width="1253" height="175" key="GridCell.Tab.0.center/67.27.1299.741@67.27.1299.741" timestamp="1578953285585" />
-    <state width="1253" height="175" key="GridCell.Tab.0.left" timestamp="1578953285584">
+    <state width="1253" height="175" key="GridCell.Tab.0.center/67.27.1299.741@67.27.1299.741" timestamp="1579095258348" />
+    <state width="1253" height="175" key="GridCell.Tab.0.left" timestamp="1579095258347">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state width="1253" height="175" key="GridCell.Tab.0.left/67.27.1299.741@67.27.1299.741" timestamp="1578953285584" />
-    <state width="1253" height="175" key="GridCell.Tab.0.right" timestamp="1578953285585">
+    <state width="1253" height="175" key="GridCell.Tab.0.left/67.27.1299.741@67.27.1299.741" timestamp="1579095258347" />
+    <state width="1253" height="175" key="GridCell.Tab.0.right" timestamp="1579095258349">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state width="1253" height="175" key="GridCell.Tab.0.right/67.27.1299.741@67.27.1299.741" timestamp="1578953285585" />
+    <state width="1253" height="175" key="GridCell.Tab.0.right/67.27.1299.741@67.27.1299.741" timestamp="1579095258349" />
     <state x="302" y="95" width="819" height="602" key="NewModule_or_Project.wizard" timestamp="1578576434015">
       <screen x="67" y="27" width="1299" height="741" />
     </state>

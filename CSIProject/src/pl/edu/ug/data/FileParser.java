@@ -7,11 +7,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class FileParser {
 
-    public static List<List<Double>> pointsGenerator(String fileName, int percentage) throws Exception
+    public static List<List<Double>> pointsGenerator(String fileName, int percentage, int numberOfPoints,boolean randomize) throws Exception
     {
         List<Double> X = new ArrayList<>();
         List<Double> Y = new ArrayList<>();
@@ -30,9 +31,11 @@ public class FileParser {
             return null;
 
         int N = obj.getJSONArray("results").length();
+        if(numberOfPoints>N)
+            numberOfPoints = N;
         BufferedWriter var0 = new BufferedWriter(new FileWriter("points.txt"));
         double x,y,x1=0,y1=0;
-        for (int i=0; i<N; i++){
+        for (int i=0; i<numberOfPoints; i++){
             JSONObject res = obj.getJSONArray("results").getJSONObject(i);
             Y.add(res.getDouble("elevation"));
             JSONObject loc = res.getJSONObject("location");
@@ -49,27 +52,28 @@ public class FileParser {
             var0.write( X.get(i)+ ";" + res.getDouble("elevation")+"\n");
         }
         var0.close();
-        int numberToHide = (int) (percentage*0.01*N);
+        int numberToHide = (int) (percentage*0.01*numberOfPoints);
 
-        //random numbers hidden
-        /*Random gen = new Random();
-        int i=0;
-        while(i<numberToHide){
-            int toHide = gen.nextInt(N-i-1);
-            hiddenX.add(X.get(toHide));
-            X.remove(toHide);
-            hiddenY.add(Y.get(toHide));
-            Y.remove(toHide);
-            i++;
-        }*/
-
-        //chosen numbers hidden
-        int i=0;
-        for(i=1;i<X.size();i=i+numberToHide){
-            hiddenX.add(X.get(i));
-            X.remove(i);
-            hiddenY.add(Y.get(i));
-            Y.remove(i);
+        if(randomize) {
+            //random numbers hidden
+            Random gen = new Random();
+            int i = 0;
+            while (i < numberToHide) {
+                int toHide = gen.nextInt(numberOfPoints - i - 1);
+                hiddenX.add(X.get(toHide));
+                X.remove(toHide);
+                hiddenY.add(Y.get(toHide));
+                Y.remove(toHide);
+                i++;
+            }
+        }else if(numberToHide>0){
+            //chosen numbers hidden
+            for (int i = 1; i < X.size(); i = i + numberToHide) {
+                hiddenX.add(X.get(i));
+                X.remove(i);
+                hiddenY.add(Y.get(i));
+                Y.remove(i);
+            }
         }
 
         points.add(X);

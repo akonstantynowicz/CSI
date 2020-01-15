@@ -22,78 +22,98 @@ public class CSI {
     public static List<Double> hiddenY;
     public static int N;
 
-    public CSI(String fileName,String matrixType, String algorithm) throws Exception {
+    public CSI(String fileName,int numberOfPoints,int toHide,boolean randomize) throws Exception {
         FileParser fp = new FileParser();
-        List<List<Double>> points = fp.pointsGenerator(fileName,10);
+        List<List<Double>> points = fp.pointsGenerator(fileName,toHide,numberOfPoints,randomize);
         X = points.get(0);
         Y = points.get(1);
         hiddenX = points.get(2);
         hiddenY = points.get(3);
         N = X.size();
         M = new ArrayList<>();
-        fillMatrix(matrixType,algorithm);
     }
 
 
-    public static void fillMatrix(String matrixType, String algorithm){
-        Matrix m = new Matrix(N,N);
-        m.fillWithZeros();
+    public static void fillMatrix(String matrixType, String algorithm,int iterationNumber) {
         double h0 = 0;
-        double h1 = X.get(1)-(X.get(0));
-        for (int i=0;i<N;i++){
-            if(i==0){
-//                m.matrix[i][i+1] = 0;
-//                m.vector[i] = 0;
-                m.matrix[i][i+1] = 1;
-                m.vector[i] = 6/h1*((Y.get(i+1)-Y.get(i))/h1);
-            }else if(i==N-1){
-//                m.matrix[i][i-1] = 0;
-//                m.vector[i] = 0;
-                m.matrix[i][i-1] = 1;
-                m.vector[i] = 6/h1*(0-((Y.get(i)-Y.get(i-1))/h1));
-            }
-            else{
-                h0=h1;
-                h1=X.get(i+1)-(X.get(i));
-                m.vector[i] = (6/(h0+h1))*(((Y.get(i+1)-Y.get(i))/h1)-((Y.get(i)-Y.get(i-1))/h0));
-            }
-            for (int j=0;j<N;j++){
-                if(i==j){
-                    m.matrix[i][j]= 2;
-                }else if(i==j-1 && i!=0){
-                    m.matrix[i][j] = h1/(h0+h1);
-                }else if(i==j+1 && i!=N-1){
-                    m.matrix[i][j] = h1/(h0+h1);
+        double h1 = X.get(1) - (X.get(0));
+
+        if (matrixType.equals("regular")) {
+            Matrix m = new Matrix(N, N);
+            m.fillWithZeros();
+            for (int i = 0; i < N; i++) {
+                if (i == 0) {
+                    m.matrix[i][i + 1] = 1;
+                    m.vector[i] = 6 / h1 * ((Y.get(i + 1) - Y.get(i)) / h1);
+                } else if (i == N - 1) {
+                    m.matrix[i][i - 1] = 1;
+                    m.vector[i] = 6 / h1 * (0 - ((Y.get(i) - Y.get(i - 1)) / h1));
+                } else {
+                    h0 = h1;
+                    h1 = X.get(i + 1) - (X.get(i));
+                    m.vector[i] = (6 / (h0 + h1)) * (((Y.get(i + 1) - Y.get(i)) / h1) - ((Y.get(i) - Y.get(i - 1)) / h0));
+                }
+                for (int j = 0; j < N; j++) {
+                    if (i == j) {
+                        m.matrix[i][j] = 2;
+                    } else if (i == j - 1 && i != 0) {
+                        m.matrix[i][j] = h1 / (h0 + h1);
+                    } else if (i == j + 1 && i != N - 1) {
+                        m.matrix[i][j] = h1 / (h0 + h1);
+                    }
                 }
             }
-        }
-        if(matrixType.equals("regular"))
-            switch (algorithm){
+
+            switch (algorithm) {
                 case "gauss":
                     Gauss gauss = new Gauss(N);
-                    M = gauss.PG(m.matrix,m.vector);
+                    M = gauss.PG(m.matrix, m.vector);
                     break;
                 case "jacobi":
                     Jacobi jacobi = new Jacobi(N);
-                    M = jacobi.jacobiMethod(m,N/2);
+                    M = jacobi.jacobiMethod(m, iterationNumber);
                     break;
                 case "gauss-seidel":
                     GaussSeidel gaussSeidel = new GaussSeidel(N);
-                    M = gaussSeidel.gaussSeidelMethod(m,N/2);
+                    M = gaussSeidel.gaussSeidelMethod(m, iterationNumber);
                     break;
                 default:
                     System.out.println("Taka metoda nie istnieje dla tej macierzy");
             }
-        if(matrixType.equals("sparse")) {
-            SparseMatrix s = transformToSparse(m);
+        }
+
+        if (matrixType.equals("sparse")) {
+            SparseMatrix sm = new SparseMatrix();
+            for (int i = 0; i < N; i++) {
+                Key keyv = new Key(i, i);
+                sm.matrix.put(keyv, 2d);
+                if (i == 0) {
+                    Key key = new Key(i, i + 1);
+                    sm.matrix.put(key, 1d);
+                    sm.vector.add(6 / h1 * ((Y.get(i + 1) - Y.get(i)) / h1));
+                } else if (i == N - 1) {
+                    Key key = new Key(i, i - 1);
+                    sm.matrix.put(key, 1d);
+                    sm.vector.add(6 / h1 * (0 - ((Y.get(i) - Y.get(i - 1)) / h1)));
+                } else {
+                    h0 = h1;
+                    h1 = X.get(i + 1) - (X.get(i));
+                    sm.vector.add((6 / (h0 + h1)) * (((Y.get(i + 1) - Y.get(i)) / h1) - ((Y.get(i) - Y.get(i - 1)) / h0)));
+                    Key key = new Key(i, i - 1);
+                    Key key1 = new Key(i, i + 1);
+                    sm.matrix.put(key, h1 / (h0 + h1));
+                    sm.matrix.put(key1, h1 / (h0 + h1));
+                }
+            }
+
             switch (algorithm) {
                 case "jacobi":
                     Jacobi jacobi = new Jacobi(N);
-                    M = jacobi.jacobiMethod(s, N/2);
+                    M = jacobi.jacobiMethod(sm, iterationNumber);
                     break;
                 case "gauss-seidel":
                     GaussSeidel gaussSeidel = new GaussSeidel(N);
-                    M = gaussSeidel.gaussSeidelMethod(s, N/2);
+                    M = gaussSeidel.gaussSeidelMethod(sm, iterationNumber);
                     break;
                 default:
                     System.out.println("Taka metoda nie istnieje dla tej macierzy");
@@ -148,15 +168,15 @@ public class CSI {
         return sparse;
     }
 
-    public static void checkResultDifferencesInHiddenValues(){
+    public static double checkResultDifferencesInHiddenValues(){
         double sum=0;
         for(int i=0;i<hiddenX.size();i++){
             double countedResult = interpolate(hiddenX.get(i));
             double realValue = hiddenY.get(i);
-//            System.out.println(countedResult + " ?=? " + realValue +"\nDifference = " + Math.abs(realValue-countedResult));
             sum += Math.abs(realValue-countedResult);
         }
-        System.out.println("Średni błąd: " + sum/hiddenX.size());
+        //System.out.println("Średni błąd: " + sum/hiddenX.size());
+        return sum/hiddenX.size();
     }
 
     public static void checkResultDifferencesInKnownValues(){

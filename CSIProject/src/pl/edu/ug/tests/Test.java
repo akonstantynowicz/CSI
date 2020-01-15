@@ -5,6 +5,8 @@ import pl.edu.ug.algorithms.Jacobi;
 import pl.edu.ug.csi.CSI;
 import pl.edu.ug.structures.Matrix;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.List;
 
 public class Test {
@@ -47,39 +49,46 @@ public class Test {
     }
 
     public static void mistakeTest() throws Exception {
-        CSI csi = new CSI("pomorskie","regular","gauss");
-        csi.checkResultDifferencesInHiddenValues();
-        CSI csi1 = new CSI("warminskie","regular","gauss");
-        csi1.checkResultDifferencesInHiddenValues();
-        CSI csi2 = new CSI("mazowieckie","regular","gauss");
-        csi2.checkResultDifferencesInHiddenValues();
-        CSI csi3 = new CSI("hills","regular","gauss");
-        csi3.checkResultDifferencesInHiddenValues();
-        CSI csi4 = new CSI("xtremehills","regular","gauss");
-        csi4.checkResultDifferencesInHiddenValues();
+        CSI csi = new CSI("pomorskie",500,10,false);
+        csi.fillMatrix("regular", "gauss",0);
+        System.out.println(csi.checkResultDifferencesInHiddenValues());
+        CSI csi1 = new CSI("warminskie",500,10,false);
+        csi1.fillMatrix("regular", "gauss",0);
+        System.out.println(csi1.checkResultDifferencesInHiddenValues());
+        CSI csi2 = new CSI("mazowieckie",500,10,false);
+        csi2.fillMatrix("regular", "gauss",0);
+        System.out.println(csi2.checkResultDifferencesInHiddenValues());
+        CSI csi3 = new CSI("hills",500,10,false);
+        csi3.fillMatrix("regular", "gauss",0);
+        System.out.println(csi3.checkResultDifferencesInHiddenValues());
+        CSI csi4 = new CSI("xtremehills",500,10,false);
+        csi4.fillMatrix("regular", "gauss",0);
+        System.out.println(csi4.checkResultDifferencesInHiddenValues());
     }
 
     public static void interationAlgorithmsMistakeTest() throws Exception {
-        CSI csi = new CSI("pomorskie","regular","jacobi");
-        csi.checkResultDifferencesInHiddenValues();
-        CSI csi1 = new CSI("pomorskie","regular","gauss-seidel");
-        csi1.checkResultDifferencesInHiddenValues();
-        CSI csi2 = new CSI("pomorskie","regular","gauss");
-        csi2.checkResultDifferencesInHiddenValues();
+        CSI csi = new CSI("pomorskie",500,10,false);
+        csi.fillMatrix("regular", "jacobi",60);
+        System.out.println(csi.checkResultDifferencesInHiddenValues());
+        csi.fillMatrix("regular", "gauss-seidel",60);
+        System.out.println(csi.checkResultDifferencesInHiddenValues());
+        csi.fillMatrix("regular", "gauss",0);
+        System.out.println(csi.checkResultDifferencesInHiddenValues());
 
     }
 
-    public static void interationAlgorithmsDifferenceTest() throws Exception {
-        CSI csi = new CSI("pomorskie100","regular","jacobi");
+    public static void algorithmsDifferenceTest() throws Exception {
+        CSI csi = new CSI("pomorskie100",100,0,false);
+        csi.fillMatrix("regular", "jacobi",60);
         List<Double> result = csi.M;
-        CSI csi1 = new CSI("pomorskie100","regular","gauss-seidel");
-        List<Double> result1 = csi1.M;
-        CSI csi2 = new CSI("pomorskie100","regular","gauss");
-        List<Double> result2 = csi2.M;
-        CSI csi3 = new CSI("pomorskie100","sparse","jacobi");
-        List<Double> result3 = csi3.M;
-        CSI csi4 = new CSI("pomorskie100","sparse","gauss-seidel");
-        List<Double> result4 = csi4.M;
+        csi.fillMatrix("regular", "gauss-seidel",60);
+        List<Double> result1 = csi.M;
+        csi.fillMatrix("regular", "gauss",0);
+        List<Double> result2 = csi.M;
+        csi.fillMatrix("sparse", "jacobi",60);
+        List<Double> result3 = csi.M;
+        csi.fillMatrix("sparse", "gauss-seidel",60);
+        List<Double> result4 = csi.M;
 
         System.out.println("Różnica między Jacobi a Gauss-Seidel: " + compareResults(result,result1));
         System.out.println("Różnica między Gauss a Gauss-Seidel: " + compareResults(result1,result2));
@@ -100,26 +109,87 @@ public class Test {
         return sum;
     }
 
-    public static void speedTest() throws Exception {
-        double sum1=0,sum2=0,sum3=0;
+    public static void speedTest(int numberOfPoints) throws Exception {
+        double sum1=0,sum2=0,sum3=0,sum4=0,sum5=0;
+        CSI csi = new CSI("pomorskie", numberOfPoints, 0,false);
+        System.out.println("Number of points:" + numberOfPoints);
         for(int i=0;i<50;i++) {
             long var1 = System.nanoTime();
-            CSI csi = new CSI("pomorskie", "regular", "gauss");
+            csi.fillMatrix("regular","gauss",0);
             long var2 = System.nanoTime() - var1;
             sum1 += (double) var2 / 1.0E9D;
 
             var1 = System.nanoTime();
-            CSI csi1 = new CSI("pomorskie", "regular", "jacobi");
+            csi.fillMatrix("regular","jacobi",60);
             var2 = System.nanoTime() - var1;
             sum2 += (double) var2 / 1.0E9D;
 
             var1 = System.nanoTime();
-            CSI csi2 = new CSI("pomorskie", "regular", "gauss-seidel");
+            csi.fillMatrix("regular","gauss-seidel",60);
             var2 = System.nanoTime() - var1;
             sum3 += (double) var2 / 1.0E9D;
+
+            var1 = System.nanoTime();
+            csi.fillMatrix("sparse","jacobi",60);
+            var2 = System.nanoTime() - var1;
+            sum4 += (double) var2 / 1.0E9D;
+
+            var1 = System.nanoTime();
+            csi.fillMatrix("sparse","gauss-seidel",60);
+            var2 = System.nanoTime() - var1;
+            sum5 += (double) var2 / 1.0E9D;
         }
         System.out.println("Gauss: " + sum1/50);
         System.out.println("Jacobi: " + sum2/50);
         System.out.println("Gauss-Seidel: " + sum3/50);
+        System.out.println("Sparse Jacobi: " + sum4/50);
+        System.out.println("Sparse Gauss-Seidel: " + sum5/50);
+    }
+
+   public static void GaussVsJacobiSparse() throws Exception {
+       CSI csi = new CSI("ultimate", 2000, 10, false);
+       long var1 = System.nanoTime();
+       csi.fillMatrix("regular", "gauss", 0);
+       long var2 = System.nanoTime() - var1;
+       System.out.println((double) var2 / 1.0E9D);
+       System.out.println(csi.checkResultDifferencesInHiddenValues());
+
+       var1 = System.nanoTime();
+       csi.fillMatrix("sparse", "jacobi", 60);
+       var2 = System.nanoTime() - var1;
+       System.out.println((double) var2 / 1.0E9D);
+       System.out.println(csi.checkResultDifferencesInHiddenValues());
+   }
+
+   public static void iterationMethodTest() throws Exception {
+        CSI csi = new CSI("pomorskie100", 100,0,false);
+       csi.fillMatrix("regular","gauss",0);
+        List<Double> resultGauss = csi.M;
+        for(int i=0;i<500;i++) {
+            csi.fillMatrix("regular","jacobi",i);
+            List<Double> resultJacobi = csi.M;
+            System.out.println(i + " " + compareResults(resultGauss,resultJacobi));
+        }
+    }
+
+    public static void dependenciesTest() throws Exception {
+        CSI csi = new CSI("ultimate",100,10,false);
+        csi.fillMatrix("regular","gauss",0);
+        List<Double> resultGauss = csi.M;
+        double sum;
+        BufferedWriter var0 = new BufferedWriter(new FileWriter("zaleznosci.txt"));
+        for(int i=0;i<100;i++) {
+            sum=0;
+            for (int j=0;j<50;j++) {
+                long var1 = System.nanoTime();
+                csi.fillMatrix("sparse", "gauss-seidel", i);
+                long var2 = System.nanoTime() - var1;
+                sum += (double) var2 / 1.0E9D;
+            }
+            List<Double> resultJacobi = csi.M;
+            var0.write(i + ";" + csi.checkResultDifferencesInHiddenValues() + ";" + sum/50 + "\n");
+
+        }
+        var0.close();
     }
 }
